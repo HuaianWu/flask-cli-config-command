@@ -6,25 +6,15 @@ description = ""
 authors = []
 keywords = []
 [metadata]
-ext_id = "2cc1e830b6f0ac95ad44116b903929b0"
+ext_id = "kh2cc1e830b6f0ac95ad44116b903929"
 task_id = "flask-cli-config-command"
-display_title = "Add a flask config CLI command that shows the effective app configuration"
-display_description = "Add a `flask config` CLI command that prints the app's effective configuration, filters by key, and supports JSON output."
-original_title = "为 Flask CLI 增加 flask config 命令，用于显示应用的有效配置"
+display_title = "Add a flask config CLI command"
+display_description = "Show the application's effective configuration from the Flask CLI, with key filtering, sorted output, and a JSON mode, running inside the app context."
+original_title = "flask config 命令显示有效配置"
 category = "feature_request"
 language = "python"
 repository_url = "https://github.com/pallets/flask"
 base_commit_hash = "d318b683471101618febed18996405ad26462110"
-
-# Provenance carried over from the Benzhi task ledger (not shown to the agent).
-[metadata.source]
-ledger = "swe-like-step1.xlsx"
-ledger_row = 2
-submitter = "帅先伟"
-submitted_at = "2026-09-02"
-seed_type = "有效轮数 < 100 且 效果好"
-seed_solution_commit = "https://github.com/attitudeshuai/flask/commit/eab1a19885a2bae5f7fb49efcc51596d48e03542"
-upstream_license = "BSD-3-Clause"
 [verifier]
 network_mode = "no-network"
 environment_mode = "separate"
@@ -46,9 +36,9 @@ network_mode = "no-network"
 timeout_sec = 10800.0
 [environment]
 build_timeout_sec = 1800.0
-# docker_image is intentionally omitted in step 1: Harbor/Pier builds environment/Dockerfile.
-# Once the image is built and pushed, set e.g.
-# docker_image = "<registry>/benzhi-swe:2cc1e830b6f0ac95ad44116b903929b0-v1"
+# docker_image is omitted in step 1: Harbor/Pier builds environment/Dockerfile.
+# After the image is built and pushed, set e.g.
+# docker_image = "<registry>/benzhi-swe:kh2cc1e830b6f0ac95ad44116b903929-v1"
 os = "linux"
 cpus = 2
 memory_mb = 8192

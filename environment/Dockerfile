@@ -13,14 +13,10 @@ RUN git clone https://github.com/pallets/flask . \
  && for t in $(git tag); do git merge-base --is-ancestor "$t" HEAD 2>/dev/null || git tag -d "$t"; done \
  && git reflog expire --expire=now --all \
  && git gc --prune=now \
- && (git submodule update --init --recursive || true)
-
-# Flask pins its toolchain in uv.lock (dependency group `tests` = asgiref, pytest,
-# python-dotenv). The versions below are `uv export --frozen --no-default-groups
-# --group tests` at BASE_SHA, resolved for Linux / CPython 3.12 (the mars-base
-# default interpreter), so the image matches upstream CI for this commit and does
-# not drift when PyPI moves. Flask's pytest config sets `filterwarnings = error`,
-# so unpinned newer dependencies could turn deprecation warnings into failures.
+ && { test ! -s .gitmodules || git submodule update --init --recursive; }
+# Pinned from the repo's uv.lock (`uv export --frozen --no-default-groups --group <tests>`) at
+# BASE_SHA, resolved for Linux / CPython 3.12 (the mars-base default interpreter), so the
+# image matches upstream CI for this commit and does not drift when PyPI moves.
 RUN pip install --no-cache-dir \
         "asgiref==3.12.1" \
         "blinker==1.9.0" \
@@ -41,7 +37,7 @@ RUN pip install --no-cache-dir \
 # v1.1 node-id scoring: pytest ships a native JUnit XML reporter (--junitxml),
 # so no extra reporter dependency is required.
 
-# Disable git commit hooks (pre-commit etc.): dev-workflow tooling, not task content.
+# Disable git commit hooks (pre-commit, husky etc.): dev-workflow tooling, not task content.
 # Broken hook environments otherwise block the agent's (and oracle's) commits.
 RUN cd /app && git config core.hooksPath /dev/null
 
